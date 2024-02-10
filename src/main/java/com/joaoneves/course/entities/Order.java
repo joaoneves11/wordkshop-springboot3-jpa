@@ -21,7 +21,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_order") // dando outro nome para a tabela order
+@Table(name = "tb_order") // outro nome para a tabela order
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class Order implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
-	private User client;// associação pedido-cliente
+	private User client; // pedido-cliente
 
 	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItem> items = new HashSet<>();
@@ -103,6 +103,14 @@ public class Order implements Serializable {
 		this.payment = payment;
 	}
 
+	public Double getToal() {
+		double sum = 0.0;
+		for(OrderItem x : items) {
+				sum += x.getSubTotal();
+		}
+		
+		return sum;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

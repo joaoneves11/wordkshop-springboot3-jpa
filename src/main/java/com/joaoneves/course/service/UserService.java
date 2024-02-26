@@ -23,5 +23,10 @@ public class UserService {
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
 		return obj.get(); //retorno do objeto que está dentro do user
+
+	}
+	
+	public User insert(User obj) {
+		return repository.save(obj);
 	}
 }
